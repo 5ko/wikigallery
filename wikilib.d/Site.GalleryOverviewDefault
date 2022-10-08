@@ -3,60 +3,8 @@ agent=Mozilla/5.0 (Windows; U; Windows NT 5.1; de; rv:1.8.1) Gecko/20061010 Fire
 author=schimmi
 csum=
 ctime=1158165865
-host=82.135.89.243
 name=Site.GalleryOverviewDefault
 rev=17
 targets=Site.GalleryOverviewDefault,Site.Site
 text=%25center%25 [[{*$Group}/{*$GalleryParent}|$[Go up]]]%0a%0a(:pagelist fmt=#galleryoverview trail={*$FullName}Index:)%0a%0a(:pagelist fmt=#galleryalbums trail={*$FullName}Albums:)%0a%0a%25comment%25 WikiGallery by Stefan Schimanski at http://1stein.org%0a
 time=1163259422
-author:1163259422=schimmi
-diff:1163259422:1159993205:=1,6c1,6%0a%3c %25center%25 [[{*$Group}/{*$GalleryParent}|$[Go up]]]%0a%3c %0a%3c (:pagelist fmt=#galleryoverview trail={*$FullName}Index:)%0a%3c %0a%3c (:pagelist fmt=#galleryalbums trail={*$FullName}Albums:)%0a%3c %0a---%0a> %25center%25 [[{$Group}/{$GalleryParent}|$[Go up]]]%0a> %0a> (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a> %0a> (:pagelist fmt=#galleryalbums trail={$FullName}Albums:)%0a> %0a
-host:1163259422=82.135.89.243
-author:1159993205=Schimmi
-diff:1159993205:1159993167:=1,2c1,2%0a%3c %25center%25 [[{$Group}/{$GalleryParent}|$[Go up]]]%0a%3c %0a---%0a> %25center%25 [[{$Group}/{$GalleryParent}|$[Go back to] {$GalleryParent}]]%0a> %0a
-host:1159993205=82.135.67.140
-author:1159993167=Schimmi
-diff:1159993167:1159993148:=1,2c1,2%0a%3c %25center%25 [[{$Group}/{$GalleryParent}|$[Go back to] {$GalleryParent}]]%0a%3c %0a---%0a> %25center%25 [[{$Group}/{$GalleryParent}|$[Go back to] {{$GalleryParent}$Title}]]%0a> %0a
-host:1159993167=82.135.67.140
-author:1159993148=Schimmi
-diff:1159993148:1159993094:=1,2c1,2%0a%3c %25center%25 [[{$Group}/{$GalleryParent}|$[Go back to] {{$GalleryParent}$Title}]]%0a%3c %0a---%0a> %25center%25 [[{$Group}/{$GalleryParent}|$[Go up]]]%0a> %0a
-host:1159993148=82.135.67.140
-author:1159993094=Schimmi
-diff:1159993094:1159993072:=0a1%0a> %0a6a8%0a> %0a
-host:1159993094=82.135.67.140
-author:1159993072=Schimmi
-diff:1159993072:1159992952:=1d0%0a%3c %0a
-host:1159993072=82.135.67.140
-author:1159992952=Schimmi
-diff:1159992952:1159992906:=1,2c1,2%0a%3c %25center%25 [[{$Group}/{$GalleryParent}|$[Go up]]]%0a%3c %0a---%0a> %25center%25 [[{$Group}/(:galleryparent:)|$[Go up]]]%0a> %0a
-host:1159992952=82.135.67.140
-author:1159992906=Schimmi
-diff:1159992906:1158569716:=1,2d0%0a%3c %25center%25 [[{$Group}/(:galleryparent:)|$[Go up]]]%0a%3c %0a
-host:1159992906=82.135.67.140
-author:1158569716=schimmi
-diff:1158569716:1158329146:=0a1,2%0a> !{$Title}%0a> %0a
-host:1158569716=138.246.7.82
-author:1158329146=schimmi
-diff:1158329146:1158329115:=7d6%0a%3c %0a
-host:1158329146=138.246.7.82
-author:1158329115=schimmi
-diff:1158329115:1158328923:=3,6c3,4%0a%3c (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a%3c %0a%3c (:pagelist fmt=#galleryalbums trail={$FullName}Albums:)%0a%3c %0a---%0a> (:pagelist fmt=#galleryalbums trail={$FullName}Albums:) (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a> %0a
-host:1158329115=138.246.7.82
-author:1158328923=schimmi
-diff:1158328923:1158328897:=3,4c3,4%0a%3c (:pagelist fmt=#galleryalbums trail={$FullName}Albums:) (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a%3c %0a---%0a> (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a> %0a
-host:1158328923=138.246.7.82
-author:1158328897=schimmi
-diff:1158328897:1158328878:=2a3,4%0a> (:pagelist fmt=#galleryalbums trail={$FullName}Albums:)%0a> [[%3c%3c]]%0a
-host:1158328897=138.246.7.82
-author:1158328878=schimmi
-diff:1158328878:1158328736:=4c4%0a%3c [[%3c%3c]]%0a---%0a> %0a
-host:1158328878=138.246.7.82
-author:1158328736=schimmi
-diff:1158328736:1158239137:=2,4d1%0a%3c %0a%3c (:pagelist fmt=#galleryalbums trail={$FullName}Albums:)%0a%3c %0a
-host:1158328736=138.246.7.82
-author:1158239137=schimmi
-diff:1158239137:1158165865:=3,4d2%0a%3c %0a%3c %25comment%25 WikiGallery by Stefan Schimanski at http://1stein.org%0a
-host:1158239137=138.246.7.82
-author:1158165865=Schimmi
-diff:1158165865:1158165865:=1,2d0%0a%3c !{$Title}%0a%3c (:pagelist fmt=#galleryoverview trail={$FullName}Index:)%0a
-host:1158165865=141.84.9.37
