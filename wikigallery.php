@@ -22,7 +22,7 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
-require_once( "tools.php" );
+require_once( __dir__ . "/tools.php" );
 
 $RecipeInfo['WikiGallery']['Version'] = '$Rev$';
 
@@ -66,31 +66,48 @@ SDV($WikiGallery_DefaultSize, 640);
 // The markup:
 Markup('(:gallerypicture group? width picture:)',
        '><|',
-       "/\\(:gallerypicture(\\s([^0-9][^\\s]+))?\\s+([0-9]+)([!])?\\s+([^:]*)\\s*:\\)/e",
-       'WikiGalleryPicture( \'$2\', \'$3\', \'$3\',\'$4\',\'$5\')');
+       "/\\(:gallerypicture(\\s([^0-9][^\\s]+))?\\s+([0-9]+)([!])?\\s+([^:]*)\\s*:\\)/",
+       'mu_WikiGalleryPicture23345');
+function mu_WikiGalleryPicture23345($m) {
+  return WikiGalleryPicture($m[2], $m[3], $m[3], $m[4],$m[5]);
+}
 Markup('(:gallerypicture group? width?:height?!? picture:)',
        '><|',
-       "/\\(:gallerypicture(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)?:([0-9]+)?([!])?\\s+([^:]+?)\\s*:\\)/e",
-       'WikiGalleryPicture( \'$2\',\'$3\',\'$4\',\'$5\',\'$6\')');
+       "/\\(:gallerypicture(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)?:([0-9]+)?([!])?\\s+([^:]+?)\\s*:\\)/",
+       'mu_WikiGalleryPicture23456');
+function mu_WikiGalleryPicture23456($m) {
+  return WikiGalleryPicture( $m[2],$m[3],$m[4],$m[5],$m[6]);
+}
 Markup('(:gallerypicturerandom group? width album:)',
        '><|',
-       "/\\(:gallerypicturerandom(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)([!])?\\s+([^:]*)\\s*:\\)/e",
-       'WikiGalleryPicture( \'$2\', \'$3\', \'$3\',\'$4\',\'$5\', true)');
+       "/\\(:gallerypicturerandom(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)([!])?\\s+([^:]*)\\s*:\\)/",
+       'mu_WikiGalleryPicture23345t');
+
+function mu_WikiGalleryPicture23345t($m) {
+  return WikiGalleryPicture($m[2], $m[3], $m[3], $m[4],$m[5], true);
+}
+
 Markup('(:gallerypicturerandom group? width?:height? album:)',
        '><|',
-       "/\\(:gallerypicturerandom(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)?:([0-9]+)?([!])?\\s+([^:]+?)\\s*:\\)/e",
-       'WikiGalleryPicture( \'$2\',\'$3\',\'$4\',\'$5\',\'$6\', true)');
+       "/\\(:gallerypicturerandom(\\s+([^0-9][^\\s]+))?\\s+([0-9]+)?:([0-9]+)?([!])?\\s+([^:]+?)\\s*:\\)/",
+       'mu_WikiGalleryPicture23456t');
 
+function mu_WikiGalleryPicture23456t($m) {
+  return WikiGalleryPicture( $m[2],$m[3],$m[4],$m[5],$m[6], true);
+}
 function WikiGalleryPicture( $group, $width, $height, $resizeMode, $path, $random=false ) {
-    $pagestore =& WikiGalleryPageStore( $group );
+    $pagestore = WikiGalleryPageStore( $group );
     return $pagestore->picture( $width, $height, $resizeMode, $path, $random );
 }
 
 Markup('(:gallerypicturepage picture:)',
        '><|',
-       "/\\(:gallerypicturepage\\s+([^:]+?)\\s*:\\)/e",
-       'fileNameToPageName( \'$1\')');
+       "/\\(:gallerypicturepage\\s+([^:]+?)\\s*:\\)/",
+       'mu_fileNameToPageName');
 
+function mu_fileNameToPageName($m) {
+  return fileNameToPageName($m[1]);
+}
 // Page variables
 $FmtPV['$GalleryPicture'] = '$page["gallerypicture"] ? $page["gallerypicture"] : ""';
 $FmtPV['$GalleryAlbum'] = '$page["galleryalbum"] ? $page["galleryalbum"] : ""';
@@ -121,10 +138,6 @@ function WikiGalleryNeighbourPicture( $group, $name, $dist ) {
     return $pagestore->neighbourPicture( $name, $dist );
 }
 
-// make it work with <2.2 versions
-if ( $VersionNum<2001900) {
-    Markup( '{*$var}', '<{$var}', '/\\{\\*\\$/e', "'{'.\$pagename.'$'" );
-}
 
 #################################################################################
 
@@ -132,7 +145,7 @@ if ( $VersionNum<2001900) {
 $WikiGallery_Register = array();
 $WikiGallery_DefaultGroup = false;
 
-function &WikiGalleryPageStore( $group ) {
+function WikiGalleryPageStore( $group ) {
     global $WikiGallery_Register, $pagename;
     if( !$group ) $group = PageVar($pagename,'$Group');
     if( @$WikiGallery_Register[$group] )
@@ -141,14 +154,14 @@ function &WikiGalleryPageStore( $group ) {
         return WikiGalleryDefaultPageStore();
 }
 
-function &WikiGalleryDefaultPageStore() {
+function WikiGalleryDefaultPageStore() {
     global $WikiGallery_Register, $WikiGallery_DefaultGroup;
     if( !@$WikiGallery_Register[$WikiGallery_DefaultGroup] ) Abort("No gallery group defined");
     return $WikiGallery_Register[$WikiGallery_DefaultGroup];
 }
 
 // default pages
-$WikiLibDirs[] =& new PageStore("$FarmD/cookbook/wikigallery/wikilib.d/\$FullName");
+$WikiLibDirs[] = new PageStore("$FarmD/cookbook/wikigallery/wikilib.d/\$FullName");
 
 // which files?
 $WikiGallery_ImgExts = '\.jpg$|\.jpeg$|\.jpe$|\.png$|\.bmp$';
@@ -161,7 +174,10 @@ $WikiGallery_PicturesBasePath = preg_replace( "/\\/$/", '', $WikiGallery_Picture
 $WikiGallery_CacheBasePath = preg_replace( "/\\/$/", '', $WikiGallery_CacheBasePath);
 
 // add Site.GalleryListTemplates to the list of fmt=#xyz options for pagelists
+SDV($FPLTemplatePageFmt, array('{$FullName}',
+  '{$SiteGroup}.LocalTemplates', '{$SiteGroup}.PageListTemplates'));
 $FPLTemplatePageFmt[] = '{$SiteGroup}.GalleryListTemplates';
+
 
 // new picture size?
 $WikiGallery_Size = $WikiGallery_DefaultSize;
@@ -176,7 +192,7 @@ if( $WikiGallery_Size<0 || $WikiGallery_Size>1600 ) {
     $WikiGallery_Size = $WikiGallery_DefaultSize;
 }
 
-require_once( "slideshow.php" );   
+require_once( __dir__ . "/slideshow.php" );   
 
 // filename <-> pagename conversion
 function fileNameToPageName( $filename ) {
@@ -191,7 +207,7 @@ function fileNameToPageName( $filename ) {
 class GalleryProvider {
     var $group;
 
-    function GalleryProvider( $group ) {
+    function __construct( $group ) {
         $this->group = $group;
     }
     // map a pagename back to a filename (could be slow, i.e. iterating over all files)
@@ -226,26 +242,26 @@ class GalleryProvider {
     }
 }
 
-require_once( "directoryprovider.php" );
+require_once( __dir__ . "/directoryprovider.php" );
 
 class GalleryPageStore extends PageStore {
     var $galleryGroup;
     var $dirfmt;
     var $provider;
 
-    function GalleryPageStore( $galleryGroup, $provider=false ) {
+    function __construct( $galleryGroup, $provider=false ) {
         global $WikiGallery_PicturesBasePath, $WikiGallery_PicturesWebPath, 
             $WikiGallery_Register, $WikiGallery_DefaultGroup;
 
         $WikiGallery_Register[$galleryGroup] =& $this;
         $WikiGallery_DefaultGroup = $galleryGroup;
-
-        $this->PageStore( $WikiGallery_PicturesBasePath );
+        parent::__construct($WikiGallery_PicturesBasePath);
+//         $this->PageStore( $WikiGallery_PicturesBasePath );
         $this->galleryGroup = $galleryGroup;
         if( $provider ) 
             $this->provider =& $provider; 
         else
-            $this->provider =& 
+            $this->provider =
                 new GalleryDirectoryProvider( $galleryGroup, 
                                               $WikiGallery_PicturesBasePath, 
                                               $WikiGallery_PicturesWebPath );   

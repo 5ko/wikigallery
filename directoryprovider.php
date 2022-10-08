@@ -39,14 +39,14 @@ class GalleryDirectoryProvider extends GalleryProvider {
     if( $thumbProvider )
       $this->thumbProvider =& $thumbProvider;
     else
-      $this->thumbProvider =& 
-	new InternalThumbProvider( $group, 
-				   $WikiGallery_CacheBasePath, 
-				   $WikiGallery_CacheWebPath, 
-				   $basePath,
-				   $webPath,
-				   $WikiGallery_ScaleMethod 
-				   );
+      $this->thumbProvider = 
+        new InternalThumbProvider( $group, 
+                $WikiGallery_CacheBasePath, 
+                $WikiGallery_CacheWebPath, 
+                $basePath,
+                $webPath,
+                $WikiGallery_ScaleMethod 
+                );
   }
 
   function pageNameToFileNameImpl( $basePath, $pageName ) {

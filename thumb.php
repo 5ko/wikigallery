@@ -63,7 +63,7 @@ function WikiGalleryThumbnail( $pagename, $auth = "read" ) {
 class ThumbProvider {
     var $group;
 
-    function ThumbProvider( $group ) {
+    function __construct( $group ) {
         global $WikiGalleryThumbProviders;
         $this->group = $group;
         $WikiGalleryThumbProviders[$group] =& $this;
@@ -86,7 +86,7 @@ class ThumbProvider {
 
 class PhpThumbProvider extends ThumbProvider {
     var $phpThumbUrl;
-    function PhpThumbProvider( $group, $phpThumbUrl ) {
+    function __construct( $group, $phpThumbUrl ) {
         $this->ThumbProvider( $group );
         $this->phpThumbUrl = $phpThumbUrl;
     }
@@ -116,7 +116,7 @@ class InternalThumbProvider extends ThumbProvider {
     var $picturesWebPath;
     var $scaleMethod;
 
-    function InternalThumbProvider( $group, $cacheBasePath, $cacheWebPath, 
+    function __construct( $group, $cacheBasePath, $cacheWebPath, 
                                     $picturesBasePath, $picturesWebPath, $scaleMethod="auto" ) {
         $this->ThumbProvider( $group );
 
@@ -135,12 +135,12 @@ class InternalThumbProvider extends ThumbProvider {
             // clean up, but not too often
             if( time()-filemtime($this->cleanupTimestamp )>$WikiGallery_CleanupInterval ) {
                 //    WikiGalleryCleanupCache();
-                register_shutdown_function( 'WikiGalleryCleanupCache', &$this, getcwd() );
+                register_shutdown_function( 'WikiGalleryCleanupCache', $this, getcwd() );
             }
         }
     }
 
-    function thumbUrl( $path, $width, $height, $resizeMode ) {
+    function thumbUrl( $path, $width, $height, $resizeMode="" ) {
         global $WikiGallery_UseAuthorization, $pagename;
         // we can use a direct url to the file if authorization is not needed
         if( !$WikiGallery_UseAuthorization ) {

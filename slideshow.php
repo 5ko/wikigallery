@@ -41,7 +41,7 @@ function WikiGallerySlideshow( $pagename, $auth = 'read') {
   if( $next && PageExists($nextpage) ) {
     // add refresh header 
     $url = MakeLink( $nextpage, $nextpage, NULL, NULL, "\$LinkUrl" );
-    array_unshift( $HTMLHeaderFmt, "<meta http-equiv=\"refresh\" content=\"$delay; URL=$url?action=slideshow&delay=$delay\" />" );
+    array_unshift( $HTMLHeaderFmt, "<meta http-equiv=\"refresh\" content=\"$delay; URL=$url?action=slideshow&amp;delay=$delay\" />" );
   }
   
   return HandleBrowse( $pagename, $auth );
