@@ -28,14 +28,17 @@ class GalleryDirectoryProvider extends GalleryProvider {
   var $directoryBasePath;
   var $thumbProvider;
 
-  function GalleryDirectoryProvider( $group, $basePath, $webPath, $thumbProvider=false ) {
+  // function GalleryDirectoryProvider( $group, $basePath, $webPath, $thumbProvider=false ) {
+  function __construct( $group, $basePath, $webPath, $thumbProvider=false ) {
     global $WikiGallery_CacheBasePath, $WikiGallery_CacheWebPath, 
       $WikiGallery_ScaleMethod;
 				
-    $this->GalleryProvider( $group );
+    // $this->GalleryProvider( $group );
+    parent::__construct($group);
 
     $this->directoryBasePath = $basePath;
     $this->directoryWebPath = $webPath;
+
     if( $thumbProvider )
       $this->thumbProvider =& $thumbProvider;
     else
@@ -107,7 +110,7 @@ class GalleryDirectoryProvider extends GalleryProvider {
     else
       $pathslash = "$path/";
     
-    // dir?
+      // dir?
     if( !is_dir( $path ) ) {
       #echo "$path is no directory or doesn't exist";
       return;
@@ -121,22 +124,25 @@ class GalleryDirectoryProvider extends GalleryProvider {
       // ignore some of them
       if( $file=='.' || $file=='..' ) { continue; }
       if( is_file($pathslash.$file) ) {
-	if (strpos(stripslashes(rawurldecode($file)), '..')
-	    || ($file[0] == '.' && $file[1] == '.')) {
-	  //echo 'Updir ("..") is not allowed in a filename.';
-	  return;
-	}
+        if (strpos(stripslashes(rawurldecode($file)), '..')
+            || ($file[0] == '.' && $file[1] == '.')) {
+          //echo 'Updir ("..") is not allowed in a filename.';
+          return;
+        }
       }
       
       if( $file[0] == '.') { continue; }
       
       // and include images
       if( is_readable($pathslash.$file) &&
-	  (($albums==false && is_file($pathslash.$file) && eregi($WikiGallery_ImgExts, $file)) ||
-	   ($albums==true && is_dir($pathslash.$file)))) {
-	$mod_date = filemtime($pathslash.$file).$i;
-	$img_files[$mod_date] = $file;
-	$i++;
+          (
+            (($albums==false) && is_file($pathslash.$file) && preg_match("/(?i)".$WikiGallery_ImgExts."/", $file)) || // eregi($WikiGallery_ImgExts, $file)) ||
+            (($albums==true) && is_dir($pathslash.$file))
+          )
+        ) {
+        $mod_date = filemtime($pathslash.$file).$i;
+        $img_files[$mod_date] = $file;
+        $i++;
       } else {
 	//echo "ignoring $file";
       }
@@ -147,18 +153,18 @@ class GalleryDirectoryProvider extends GalleryProvider {
     if( isset($img_files) ) {
       if( ($albums==false && $WikiGallery_SortByDate==TRUE) ||
 	  ($albums==true && $WikiGallery_AlbumsSortByDate==TRUE) ) {
-	ksort($img_files);
+	      ksort($img_files);
       } else {
-	natcasesort($img_files);
+	      natcasesort($img_files);
       }
       foreach($img_files as $img) {
-	$sorted_files[]=$img;
+	      $sorted_files[]=$img;
       }
       if ( ($albums==false && $WikiGallery_SortBackwards==TRUE) ||
 	   ($albums==true && $WikiGallery_AlbumsSortBackwards==TRUE) ) {
-	return (array_reverse($sorted_files));
+	      return (array_reverse($sorted_files));
       } else {
-	return $sorted_files;
+	      return $sorted_files;
       }
     } 
   }

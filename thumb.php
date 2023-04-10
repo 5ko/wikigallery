@@ -118,7 +118,8 @@ class InternalThumbProvider extends ThumbProvider {
 
     function __construct( $group, $cacheBasePath, $cacheWebPath, 
                                     $picturesBasePath, $picturesWebPath, $scaleMethod="auto" ) {
-        $this->ThumbProvider( $group );
+        // $this->ThumbProvider( $group );
+        parent::__construct($group);
 
         $this->cacheBasePath = $cacheBasePath;
         $this->cacheWebPath = $cacheWebPath;

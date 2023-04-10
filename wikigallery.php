@@ -256,7 +256,7 @@ class GalleryPageStore extends PageStore {
         $WikiGallery_Register[$galleryGroup] =& $this;
         $WikiGallery_DefaultGroup = $galleryGroup;
         parent::__construct($WikiGallery_PicturesBasePath);
-//         $this->PageStore( $WikiGallery_PicturesBasePath );
+//        $this->PageStore( $WikiGallery_PicturesBasePath );
         $this->galleryGroup = $galleryGroup;
         if( $provider ) 
             $this->provider =& $provider; 
@@ -551,16 +551,17 @@ class GalleryPageStore extends PageStore {
             if( !$pictures ) {
                 // no pictures found. Try albums instead
                 $albums = $this->provider->getFilenames( "/" . $path, true );
-                if( !albums ) return false;
+                if( !$albums ) return false;
                 $path .= "/" . $albums[rand(0,count($albums)-1)];
                 return $this->picture( $width, $height, $resizeMode, $path, true );
             }
-      
+
             // choose random picture
             $num = rand(0, count($pictures)-1);
             $path .= "/" . $pictures[$num];
+
         }
-  
+
         // return thumb url
         return $this->provider->thumb( $path, $width, $height, $resizeMode );
     }
