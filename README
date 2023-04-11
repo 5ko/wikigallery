@@ -1,3 +1,11 @@
 WikiGallery - automatic easy to use fully integrated gallery extension for PmWiki
 
 For more information look here: https://www.pmwiki.org/wiki/Cookbook/WikiGallery
+
+Please note, the recipe is currently unmaintained and unsupported. It is not 
+recommended to use it in new projects, see the PmWiki recipes Mini and ThumbList 
+for supported gallery addons.
+
+If you use this recipe, and can take over the maintenance, please do so.
+
+--Petko
